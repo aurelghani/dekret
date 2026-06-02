@@ -37,6 +37,11 @@ struct SaveNode {
     SaveNode* next;
 };
 
+struct DecisionHistoryStack {
+    string history[512];
+    int top;
+};
+
 void clearScreen();
 void delay(int ms);
 void tampilkanStatistik(const Statistik &pemain);
@@ -45,12 +50,16 @@ void batasiStat(int &nilai);
 void terapkanKeputusan(Statistik &pemain, const Keputusan &keputusan);
 bool periksaKalah(const Statistik &pemain);
 
+void initializeDecisionHistory(DecisionHistoryStack &decisionHistory);
+void pushDecisionHistory(DecisionHistoryStack &decisionHistory, int month, string decisionText);
+void showDecisionHistory(const DecisionHistoryStack &decisionHistory);
+
 SaveNode* buatSaveList();
 void tampilkanSlot(SaveNode* head);
 void simpanKeSlot(SaveNode* head, int slot, Statistik pemain, int bulan);
 bool muatDariSlot(int slot, Statistik &pemain, int &bulan);
 
 void menuUtama();
-void jalankanGame(Statistik &pemain, int bulanAwal, SaveNode* saveList);
+void jalankanGame(Statistik &pemain, int bulanAwal, SaveNode* saveList, DecisionHistoryStack &decisionHistory);
 
 #endif
